@@ -27,7 +27,8 @@ function parseArguments() {
     const regOpt = /^-(e|f|ef|fe)$/
 
     let day = process.argv[2] && regDay.test(process.argv[2]) ? process.argv[2] : die()
-    let opt = process.argv[3] && regOpt.test(process.argv[3]) ? process.argv[3] : die()
+    let opt = (process.argv[3] && regOpt.test(process.argv[3])) || 
+        process.argv[3] === undefined ? process.argv[3] : die()
 
     const [optE, optF] = opt ? [opt.includes('e'), opt.includes('f')] : [false, false]
     return {day, optE, optF}
@@ -41,7 +42,7 @@ function parseArguments() {
 async function loadInputFile(inputPath) {
     try {
         const loadInput = await readFile(inputPath, 'UTF-8')
-        return loadInput.split('\n') 
+        return loadInput//.split('\n') 
     } catch (err) {
         console.error('Error reading input file:', err)
         process.exit(1)
