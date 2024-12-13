@@ -13,6 +13,11 @@ Examples:
   node main.js day3 -f\t\tOutputs the final solution for day 3.
   node main.js day5 -ef\t\tRuns with the example input and outputs the final solution for day 5.`;
 
+const exampleSetPart1 = "Example Input Solution (Part 1): "
+const exampleSetPart2 = "Example Input Solution (Part 2): "
+const puzzleSetPart1 = "Puzzle Input Solution (Part 1): "
+const puzzleSetPart2 = "Puzzle Input Solution (Part 2): "
+
 function die() {
     console.error(errMess)
     process.exit(1)
@@ -76,7 +81,21 @@ async function main() {
 
     const input = await loadInputFile(inputPath);
     const result = await executeDayModule(scriptPath, input, optF);
-    console.log(result)
+    
+    switch(true) {
+        case (optE && !optF):
+            console.log(exampleSetPart1 + result)
+            break;
+        case (optE && optF):
+            console.log(exampleSetPart2 + result)
+            break;
+        case (!optE && !optF):
+            console.log(puzzleSetPart1 + result)
+            break;
+        case (!optE && optF):
+            console.log(puzzleSetPart2 + result)
+            break;
+    }
 }
 
 main().catch((err) => {
