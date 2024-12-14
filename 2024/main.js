@@ -1,4 +1,4 @@
-import { readFile } from 'fs/promises'
+import { readFile, stat } from 'fs/promises'
 
 const errMess = `Usage: node main.js <day> [options]\n
 Arguments:
@@ -47,7 +47,7 @@ function parseArguments() {
 async function loadInputFile(inputPath) {
     try {
         const loadInput = await readFile(inputPath, 'UTF-8')
-        return loadInput//.split('\n') 
+        return loadInput
     } catch (err) {
         console.error('Error reading input file:', err)
         process.exit(1)
@@ -74,9 +74,12 @@ async function executeDayModule(scriptPath, input, optF) {
     }
 }
 
+const fileExists = async path => !!(await stat(path).catch(e => false))
+
 async function main() {
     const { day, optE, optF } = parseArguments();
-    const inputPath = optE ? `${day}/example` : `./${day}/puzzle`;
+    const exampleFile2Exists = await fileExists(`./${day}/example2`)
+    const inputPath = optE ? (exampleFile2Exists && optF ? `./${day}/example2` : `./${day}/example`) : `./${day}/puzzle`;
     const scriptPath = `./${day}/${day}.js`;
 
     const input = await loadInputFile(inputPath);
