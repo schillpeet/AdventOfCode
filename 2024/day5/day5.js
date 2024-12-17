@@ -17,18 +17,28 @@ function part1(input) {
         rulesPredecessor[key].push(firstNumbersOfRules[idx])
     })
 
-    const correctUpdates = updatedPagesStr.split('\n').map(e => e.split(',').map(Number)) // array<array<Number>
-        .filter(list => {                       // array<Number>, e.g. [75,47,61,53,29]
-            const [head, ...tail] = list;       // head: [75], tail: [47,61,53,29]
-            // TODO as 5183 was too high, I will now only validate the direct successors/predecessors
-            const checkAllSuccessor = tail.every(t => rulesSuccessor[t] ? !rulesSuccessor[t].includes(head) : true);
+    const correctUpdates = updatedPagesStr.split('\n').map(e => e.split(',').map(Number))
+        .filter(list => {
+
+            const checkAllSuccessor = list.reduce((acc, elem) => {
+                const headTemp = elem
+                const tailTemp = list.slice(acc[0])
+                const checkSuccessor = tailTemp.every(t => rulesSuccessor[t] ? !rulesSuccessor[t].includes(headTemp) : true);
+                acc[1] = acc[1] && checkSuccessor
+                acc[0] += 1
+                return acc
+            }, [0, true])[1]
             
-            const [headP, ...tailP] = [...list].reverse()
-            const checkAllPredecessor = tailP.every(t => rulesPredecessor[t] ? !rulesPredecessor[t].includes(headP) : true);
+            const checkAllPredecessor = [...list].reverse().reduce((acc, elem) => {
+                const headTemp = elem
+                const tailTemp = list.slice(acc[0])
+                const checkPredecessor = tailTemp.every(t => rulesSuccessor[t] ? !rulesSuccessor[t].includes(headTemp) : true);
+                acc[1] = acc[1] && checkPredecessor
+                acc[0] += 1
+                return acc
+            }, [0, true])[1]
 
-            console.log(checkAllSuccessor, checkAllPredecessor)
-
-            return (checkAllSuccessor && checkAllPredecessor)
+            return (checkAllSuccessor || checkAllPredecessor)
         })
     
     // returns sum of middle page numbers
