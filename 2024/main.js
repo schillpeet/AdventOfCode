@@ -59,7 +59,7 @@ async function loadInputFile(inputPath) {
  * @param {string} scriptPath - Path to the day's script.
  * @param {string[]} input - Input data.
  * @param {boolean} optF - Whether to execute the final solution.
- * @returns {Promise<any>} - Result from the day's module.
+ * @returns {Promise<String>} - Result from the day's module.
  */
 async function executeDayModule(scriptPath, input, optF) {
     try {
