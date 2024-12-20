@@ -1,65 +1,58 @@
-/**
- * The cardinal points refer to the laboratory with a fixed point of view. This means that 
- * if the guard walks from left to right, it means from east to west. 
- */
-function allDirectionsAndGuardPosition(input) {
-    const DIR = ['>','^','<','v']
-    const allDir = [null, null, null, null]
-
-    const inputArr = input.split('\n')
-    const labWestToEast = inputArr.map(arr => arr.split(''))
-    const weDirection = inputArr.flatMap(e => e.match(/[^.#]/g) || []).at(0) // character, e.g. '^'
-    const weIdx = DIR.indexOf(weDirection) // position of character (e.g. ^) in DIR
-    // CHECK
-    //if (weDirection === 'v') labWestToEast.map(arr => arr.reverse())
-    allDir[weIdx] = labWestToEast
-    
-    const nsDirection = weIdx === 3 ? DIR[0] : DIR[weIdx + 1]
-    const nsIdx = DIR.indexOf(nsDirection)
-    const labNorthToSouth = Array.from({ length: labWestToEast[0].length }, (_, idx) => labWestToEast.map(arr => arr.at(idx) === weDirection ? nsDirection : arr.at(idx)))
-    // CHECK
-    //if (nsDirection === 'v') labNorthToSouth.map(arr => arr.reverse())
-    allDir[nsIdx] = labNorthToSouth
-    
-    const ewDirection = nsIdx === 3 ? DIR[0] : DIR[nsIdx + 1]
-    const ewIdx = DIR.indexOf(ewDirection)
-    const labEastToWest = [...labWestToEast].map(arr => arr.map(char => char === weDirection ? ewDirection : char).reverse())
-    // CHECK
-    //if (ewDirection === 'v') {labEastToWest.map(arr => arr.reverse()); console.log("ew is v")}
-    allDir[ewIdx] = labEastToWest
-    
-    const snDirection = ewIdx === 3 ? DIR[0] : DIR[ewIdx + 1]
-    const snIdx = DIR.indexOf(snDirection)
-    const labSouthToNorth = [...labNorthToSouth].map(arr => arr.map(char => char === nsDirection ? snDirection : char).reverse())
-    // CHECK
-    //if (snDirection === 'v') labSouthToNorth.map(arr => arr.reverse())
-    allDir[snIdx] = labSouthToNorth
-
-    // e.g., [ 0, 9 ] means array: 0, index: 9
-    const guardPosition = allDir[0].flatMap((arr, idx) => arr.indexOf('>') !== -1 ? [idx, arr.indexOf('>')] : [])
-    
-    return [allDir, guardPosition]
+function wayToMove(direction, gp, lab) {
+    switch(direction) {
+        case '^':
+            const up = (gp) => gp[0] === 0 ? gp : gp[0]--
+            const backUp = (gp) => gp[0]++
+            return [0, gp[0] + 1, '>', up, backUp]
+        case '>':
+            const right = (gp) => gp[1] === gp[1].length - 1 ? gp : gp[1]++
+            const backRight = (gp) => gp[1]--
+            return [gp[1], lab[gp[0]].length, 'v', right, backRight]
+        case 'v':
+            const down = (gp) => gp[0] === lab[gp[1]].length - 1 ? gp : gp[0]++
+            const backDown = (gp) => gp[0]--
+            return [gp[0], lab[gp[1]].length, '<', down, backDown]
+        case '<':
+            const left = (gp) => gp[1] === 0 ? gp : gp[1]--
+            const backLeft = (gp) => gp[1]++
+            return [0, gp[1] + 1, '^', left, backLeft]
+    }
 }
 
-function part1(input) {
-    const [allDir, guardPos] = allDirectionsAndGuardPosition(input)
-    allDir.forEach(arr => {
-        arr.forEach(arr2 => console.log(arr2))
-        console.log()
-    });
-    /* let countFields = 0
-    const currentDirection = 0
-    while(1) {
-        const theWayToGo = allDir[currentDirection][guardPos[0]].slice(guardPos[1] + 1)
+function part1(input) { 
+    let guardPosition = input.flatMap((str, idx) => str.includes('^') ? [idx, str.indexOf('^')] : []) // [col,row]
+    let lab = input.map(elem => elem.split(''))
+    let stepsOfGuard = 0
 
-        const theWayTaken = theWayToGo.indexOf('#') !== -1 
-            ? [countFields += theWayToGo.indexOf('#') - 1, false] 
-            : [countFields += theWayToGo.length, true]
-        if (theWayTaken[1]) return countFields
-        currentDirection === 3 ? currentDirection = 0 : currentDirection += 1
-        guardPos[0] = ???
-        guardPos[1] = ???
-    } */
+    let currentMovement = lab[guardPosition[0]][guardPosition[1]]
+    let finished = false
+    
+    while(!finished) {
+        let [start, wtm, nextMove, move, unmove] = wayToMove(currentMovement, guardPosition, lab)
+
+        for (let i = start; i < wtm; i++) {
+            if (lab[guardPosition[0]][guardPosition[1]] !== 'X') {
+                lab[guardPosition[0]][guardPosition[1]] = 'X'
+                stepsOfGuard++
+            }
+            let guardPositionBefore = [...guardPosition]
+            move(guardPosition)
+
+            if (guardPositionBefore[0] === guardPosition[0] && guardPositionBefore[1] === guardPosition[1] ) {
+                unmove(guardPosition)
+                finished = true
+                break
+            }
+            
+            if (lab[guardPosition[0]][guardPosition[1]] === '#') {
+                unmove(guardPosition)
+                break
+            }
+        }
+        currentMovement = nextMove
+    }
+
+    return stepsOfGuard
 }
 
 function part2(input) {
@@ -68,10 +61,11 @@ function part2(input) {
 }
 
 /**
- * @param {String} input 
- * @param {Boolean} optF 
+ * @param {String} input - including line breaks
+ * @param {Boolean} optF - option final = true, means execute part 2
  * @returns 
  */
 export async function run(input, optF) {
-    return !optF ? part1(input) : part2(input)
+    let partOneInput = input.split('\n')
+    return !optF ? part1(partOneInput) : part2(input)
 }
