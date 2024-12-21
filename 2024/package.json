@@ -5,10 +5,13 @@
   "type": "module",
   "scripts": {
     "day": "node main.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest"
   },
   "keywords": [],
   "author": "schillpeet",
   "license": "ISC",
-  "description": "Advent of Code 2024 solutions in JavaScript"
+  "description": "Advent of Code 2024 solutions in JavaScript",
+  "devDependencies": {
+    "vitest": "^2.1.8"
+  }
 }
