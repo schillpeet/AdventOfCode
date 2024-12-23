@@ -5,45 +5,45 @@ function initCalibrationInput(input) {
     })
 }
 
-function calibrationTest(equ) {
+function allCombinationsOfOperations(operandsLength, numberSystem) {
     const ADD = (a,b) => a+b
     const MULT = (a,b) => a*b
+    const PIPE = (a,b) => Number(a.toString().concat(b))
+    const numberOfPossibleCalculations = Math.pow(numberSystem, operandsLength-1)
     
-    const expetedResult = equ.result
-    const operands = equ.operands
-    const numberOfPossibleCalculations = Math.pow(2, operands.length-1)
-
     let allCombinationsOfOperations = []
     for (let i = 0; i < numberOfPossibleCalculations; i++) {
-        let binary = i.toString(2)
-        if (binary.length <= operands.length-2){
-            const toFill = (operands.length-1) - binary.length
-            binary = '0'.repeat(toFill) + i.toString(2)
+        let numSys = i.toString(numberSystem)
+        
+        if (numSys.length <= operandsLength-2){
+            const toFill = (operandsLength-1) - numSys.length
+            numSys = '0'.repeat(toFill) + i.toString(numberSystem)
         }
-        allCombinationsOfOperations.push(binary.split('').map(e => e === '0' ? ADD : MULT))
+        allCombinationsOfOperations.push(numSys.split('').map(e => e === '0' ? ADD : e === '1' ? MULT : PIPE))
     }
+    return allCombinationsOfOperations
+}
+
+function calibrationTest(equ, numSys) {
+    const expetedResult = equ.result
+    const operands = equ.operands
+    const aCOO = allCombinationsOfOperations(operands.length, numSys)    
     
-    const foundOperation = allCombinationsOfOperations.some(op => {
+    const foundOperation = aCOO.some(op => {
         const [head, ...tail] = operands        
         const tmpCalculation = tail.reduce((acc, tValue, idx) => {
             return op[idx](acc, tValue)
-        }, head)
-                
+        }, head)            
         return expetedResult === tmpCalculation
     })
     return foundOperation ? expetedResult : 0
 }
 
-export function part1(input) { 
+function getResult(input, numberSystem) {
     const initCalib = initCalibrationInput(input)
      return initCalib.reduce((acc, value) => {
-        return acc + calibrationTest(value)
-    }, 0) 
-}
-
-function part2(input) {
-    console.error("Not implemented yet!")    
-    return -1
+        return acc + calibrationTest(value, numberSystem)
+    }, 0)
 }
 
 /**
@@ -52,5 +52,5 @@ function part2(input) {
  * @returns 
  */
 export async function run(input, optF) {
-    return !optF ? part1(input) : part2(input)
+    return !optF ? getResult(input, 2) : getResult(input, 3)
 }
