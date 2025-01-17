@@ -19,11 +19,11 @@ $ node main.js <day> [options]
 
 #### Options:
 
-- **`[-e]` (optional):** <br>
+- `[-e]` (optional): <br>
   Loads the example file; without this option the puzzle is loaded directly.
-- **`[-f]` (optional):**<br>
+- `[-f]` (optional):<br>
   Loads the final solution (part2); otherwise solution 1 is printed.
-- **`[-ef]` or `[-fe]` (optional):**<br>
+- `[-ef]` or `[-fe]` (optional):<br>
   Use both options to load the example file and output the final solution.
 
 #### Examples:
