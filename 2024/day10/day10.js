@@ -55,13 +55,6 @@ function part1(input) {
         return acc
     }, 0)
     return sumOfScores
-
-
-    
-    // 3. counts all possible trails
-/*     const sumOfScores = trailheads.reduce((acc, [x,y]) => acc += trail(x,y,0), 0)
-
-    return sumOfScores */
 }
 
 /**
@@ -70,8 +63,18 @@ function part1(input) {
  * @returns 
  */
 function part2(input) {
-    console.error("Not implemented yet!", input)    
-    return -1
+    // 1. create CO-system
+    topographicMap = input.split('\n').map(row => row.split('').map(char => Number(char)))
+
+    // 2. creates coordinates of trailheads (0 = start postion)
+    const trailheads = topographicMap.flatMap((row, rIdx) => 
+        row.map((num, nIdx) => num === 0 ? [rIdx, nIdx] : null)
+    ).filter(arr => arr)
+    
+    // 3. counts all ways
+    const sumOfScores = trailheads.reduce((acc, [x,y]) => acc += trail(x,y), 0)
+
+    return sumOfScores
 }
 
 /**
