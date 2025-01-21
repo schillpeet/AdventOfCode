@@ -1,8 +1,10 @@
 {
     "compilerOptions": {
+        "moduleResolution": "nodenext",
         "target": "ES2021",
-        "module": "ES2020",
-        "checkJs": true
+        "module": "NodeNext",
+        "checkJs": true,
+        "types": ["vitest/globals"]
     },
     "exclude": [
         "node_modules"

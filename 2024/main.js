@@ -25,7 +25,7 @@ function die() {
 
 /**
  * Parses command-line arguments and validates them.
- * @returns {{ day: string, optE: boolean, optF: boolean }}
+ * @returns {{ day: string | void, optE: boolean, optF: boolean }}
  */
 function parseArguments() {
     const regDay = /^day([1-9]|1[0-9]|2[0-4])$/
@@ -42,11 +42,11 @@ function parseArguments() {
 /**
  * Reads the input file and returns its content split into lines.
  * @param {string} inputPath - Path to the input file.
- * @returns {Promise<string[]>} - Array of lines from the file.
+ * @returns {Promise<string>} - Array of lines from the file.
  */
 async function loadInputFile(inputPath) {
     try {
-        const loadInput = await readFile(inputPath, 'UTF-8')
+        const loadInput = await readFile(inputPath, 'utf-8')
         return loadInput
     } catch (err) {
         console.error('Error reading input file:', err)
@@ -57,7 +57,7 @@ async function loadInputFile(inputPath) {
 /**
  * Dynamically imports and executes a day's module.
  * @param {string} scriptPath - Path to the day's script.
- * @param {string[]} input - Input data.
+ * @param {string} input - Input data.
  * @param {boolean} optF - Whether to execute the final solution.
  * @returns {Promise<String>} - Result from the day's module.
  */
@@ -74,7 +74,7 @@ async function executeDayModule(scriptPath, input, optF) {
     }
 }
 
-const fileExists = async path => !!(await stat(path).catch(e => false))
+const fileExists = async path => !!(await stat(path).catch(() => false))
 
 async function main() {
     const { day, optE, optF } = parseArguments();
