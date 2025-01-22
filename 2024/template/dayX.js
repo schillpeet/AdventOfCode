@@ -4,7 +4,7 @@
  * @returns 
  */
 function part1(input) { 
-    console.error("Not implemented yet!")
+    console.error("Not implemented yet!", input)
     return -1
 }
 
@@ -14,7 +14,7 @@ function part1(input) {
  * @returns 
  */
 function part2(input) {
-    console.error("Not implemented yet!")    
+    console.error("Not implemented yet!", input)    
     return -1
 }
 
