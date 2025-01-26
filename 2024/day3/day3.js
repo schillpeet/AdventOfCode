@@ -34,7 +34,7 @@ const getMatches = (line, pattern) =>
 
 let rangeStarts = true
 function computeRanges(line) {
-    const regDoAndDont = /(do\(\)|don\'t\(\))/g
+    const regDoAndDont = /(do\(\)|don't\(\))/g
     const multMatches = getMatches(line, regDoAndDont)
         .map(value => value[0].length === 7 ? [false, value[1]] : [true, value[1]])
 
