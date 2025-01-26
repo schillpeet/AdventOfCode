@@ -39,9 +39,13 @@ $ node main.js <day> [options]
 
 Run tests with vitest (if they exists): `$ npm run test`
 
+It starts automatically in the watch mode.
+
 ## Debugging
 
-1. Open your source code (day) and set a breakpoint
+1. Open your source code (day) **and** the test code set the breakpoints
 2. On the left-hand sidebar of VSCode, click on the Run and Debug icon
 3. From the dropdown menu at the top of the Debug panel, choose the configuration you set up for Vitest. This configuration is defined in the launch.json file under .vscode/
 4. Click the green play button to start debugging
+
+- HINT: if you only want to debug a specific test, simply put an ‘only’ after the 'it'.
