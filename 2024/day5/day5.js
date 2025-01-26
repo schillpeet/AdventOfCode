@@ -66,7 +66,7 @@ function part2(updatedPagesArr, rulesSuccessor) {
 
 export async function run(input, optF) {
     const [pageRulesStr, updatedPagesStr] = input.split('\n\n')
-    const allNumbersOfRules = pageRulesStr.split(/[\|\n]/).map(Number)
+    const allNumbersOfRules = pageRulesStr.split(/[|\n]/).map(Number)
     const updatedPagesArr = updatedPagesStr.split('\n').map(e => e.split(',').map(Number))
     
     const rulesSuccessor = getSuccessorAndPredecessor(allNumbersOfRules) 
