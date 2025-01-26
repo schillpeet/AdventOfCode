@@ -1,25 +1,25 @@
 function wayToMove(direction, gp, lab) {
     switch(direction) {
         case '^':
-            const up = (gp) => !nextStepEndOfMapUp(gp) && !nextStepUpObstruction(gp) ? gp[0]-- : gp
+            { const up = (gp) => !nextStepEndOfMapUp(gp) && !nextStepUpObstruction(gp) ? gp[0]-- : gp
             const nextStepEndOfMapUp = gp => gp[0] - 1 < 0
             const nextStepUpObstruction = gp => !nextStepEndOfMapUp(gp) && (lab[gp[0] - 1][gp[1]] === '#')
-            return [0, gp[0] + 1, '>', up, nextStepEndOfMapUp, nextStepUpObstruction]
+            return [0, gp[0] + 1, '>', up, nextStepEndOfMapUp, nextStepUpObstruction] }
         case '>':
-            const right = (gp) => !nextStepEndOfMapRight(gp) && !nextStepRightObstruction(gp) ? gp[1]++ : gp 
+            { const right = (gp) => !nextStepEndOfMapRight(gp) && !nextStepRightObstruction(gp) ? gp[1]++ : gp 
             const nextStepEndOfMapRight = gp => gp[1] + 1 > lab[gp[1]].length - 1
             const nextStepRightObstruction = gp => !nextStepEndOfMapRight(gp) && (lab[gp[0]][gp[1] + 1] === '#')
-            return [gp[1], lab[gp[0]].length, 'v', right, nextStepEndOfMapRight, nextStepRightObstruction]
+            return [gp[1], lab[gp[0]].length, 'v', right, nextStepEndOfMapRight, nextStepRightObstruction] }
         case 'v':
-            const down = (gp) => !nextStepEndOfMapDown(gp) && !nextStepDownObstruction(gp) ? gp[0]++ : gp
+            { const down = (gp) => !nextStepEndOfMapDown(gp) && !nextStepDownObstruction(gp) ? gp[0]++ : gp
             const nextStepEndOfMapDown = (gp) => gp[0] + 1 > lab.length - 1
             const nextStepDownObstruction = gp => !nextStepEndOfMapDown(gp) && (lab[gp[0] + 1][gp[1]] === '#')
-            return [gp[0], lab[gp[1]].length, '<', down, nextStepEndOfMapDown, nextStepDownObstruction]
+            return [gp[0], lab[gp[1]].length, '<', down, nextStepEndOfMapDown, nextStepDownObstruction] }
         case '<':
-            const left = (gp) => !nextStepEndOfMapLeft(gp) && !nextStepLeftObstruction(gp) ? gp[1]-- : gp
+            { const left = (gp) => !nextStepEndOfMapLeft(gp) && !nextStepLeftObstruction(gp) ? gp[1]-- : gp
             const nextStepEndOfMapLeft = gp => gp[1] - 1 < 0
             const nextStepLeftObstruction = gp => !nextStepEndOfMapLeft(gp) && (lab[gp[0]][gp[1] - 1] === '#')
-            return [0, gp[1] + 1, '^', left, nextStepEndOfMapLeft, nextStepLeftObstruction]
+            return [0, gp[1] + 1, '^', left, nextStepEndOfMapLeft, nextStepLeftObstruction] }
     }
 }
 
