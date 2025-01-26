@@ -32,7 +32,7 @@ function part2(numbers) {
  * 
  * @param {string} input - A string of numbers, one set per line.
  * @param {boolean} optF - If true, also checks for the conditions of `part2`.
- * @returns {number} - The final result based on the given input and options.
+ * @returns {Promise<number>} - The final result based on the given input and options.
  */
 export async function run(input, optF) {
     let result = 0
