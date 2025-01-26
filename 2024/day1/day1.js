@@ -52,7 +52,7 @@ function createLists(input) {
  * Executes the correct part of the solution based on the `optF` flag.
  * @param {string} input - The input string to be processed into lists.
  * @param {boolean} optF - A flag that determines whether to call `part1` (if `false`) or `part2` (if `true`).
- * @returns {number} - The result from either `part1` or `part2` based on the `optF` flag.
+ * @returns {Promise<number>} - The result from either `part1` or `part2` based on the `optF` flag.
  */
 export async function run(input, optF) {
     let [list1, list2] = createLists(input)
