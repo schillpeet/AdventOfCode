@@ -8,8 +8,12 @@
         "esModuleInterop": true,
         "skipLibCheck": true,
         "checkJs": true,
-        "types": ["vitest"]
+        "allowJs": true,
+        "types": ["vitest/globals"],
+        // to use .ts extensions in tests
+        "allowImportingTsExtensions": true,
+        "noEmit": true,
     },
-    "include": [ "./**/*.ts" ],
-    "exclude": [ "node_modules", "**/*.js" ]
+    "include": ["**/*.ts"],
+    "exclude": ["node_modules"]
 }

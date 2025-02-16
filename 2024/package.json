@@ -14,9 +14,11 @@
   "description": "Advent of Code 2024 solutions in JavaScript",
   "devDependencies": {
     "@eslint/js": "^9.18.0",
+    "@types/node": "^22.13.4",
     "eslint": "^9.18.0",
     "globals": "^15.14.0",
     "typescript-eslint": "^8.21.0",
+    "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^2.1.8"
   }
 }
