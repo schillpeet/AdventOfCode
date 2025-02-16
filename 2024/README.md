@@ -1,8 +1,30 @@
 # 🎄 Advent of Code 2024
 
+I wrote days 1 to 12 exclusively in JavaScript. From day 13 onwards, I programmed exclusively with TypeScript.
+
+## Installation
+
 Install the project: `$ npm i`
 
-## Run a day
+## Run a day (TypeScript)
+
+❗ To be used from day 13. Regarding the options, see section **_*Run a day (JavaScript)*_**.
+
+### Usage:
+
+```bash
+$ npm run day -- <day> <option>
+```
+
+### Example:
+
+```bash
+$ npm run day -- day13 -f
+```
+
+## Run a day (JavaScript)
+
+❗ To be used from day 1 to day 13.
 
 ### Usage:
 

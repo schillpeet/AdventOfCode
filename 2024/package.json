@@ -4,7 +4,8 @@
   "main": "main.js",
   "type": "module",
   "scripts": {
-    "day": "node main.js",
+    "build": "npx tsc",
+    "day": "npm run build && node main.js",
     "test": "vitest"
   },
   "keywords": [],
