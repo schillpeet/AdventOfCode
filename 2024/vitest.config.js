@@ -1,6 +1,5 @@
-import { defineConfig } from 'vitest/config'
-import viteTsconfigPaths from 'vite-tsconfig-paths'
-
+import { defineConfig } from 'vitest/config';
+import viteTsconfigPaths from 'vite-tsconfig-paths';
 export default defineConfig({
     plugins: [viteTsconfigPaths()],
     test: {
@@ -8,4 +7,4 @@ export default defineConfig({
         include: ['**/*.test.ts'],
         watch: true
     }
-})
+});
