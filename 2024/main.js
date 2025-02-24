@@ -1,6 +1,6 @@
 import { readFile, stat } from 'fs/promises'
 
-const errMess = `Usage: node main.js <day> [options]\n
+const errMess = `Usage: npm run day -- <day> [option]\n
 Arguments:
   <day>\tRequired. Must be a value between 'day1' and 'day24'.\n
 Options:
@@ -8,10 +8,10 @@ Options:
   [-f]\t\t\tOptional. Loads the final solution (part2); otherwise solution 1 is printed.
   [-ef] or [-fe]\tOptional. Use both options to load the example file and output the final solution.\n
 Examples:
-  node main.js day1\t\tRuns with the puzzle input for day 1.
-  node main.js day2 -e\t\tRuns with the example input for day 2.
-  node main.js day3 -f\t\tOutputs the final solution for day 3.
-  node main.js day5 -ef\t\tRuns with the example input and outputs the final solution for day 5.`;
+  npm run day -- day1\t\tRuns with the puzzle input for day 1.
+  npm run day -- day2 -e\t\tRuns with the example input for day 2.
+  npm run day -- day3 -f\t\tOutputs the final solution for day 3.
+  npm run day -- day5 -ef\t\tRuns with the example input and outputs the final solution for day 5.`;
 
 const exampleSetPart1 = "Example Input Solution (Part 1): "
 const exampleSetPart2 = "Example Input Solution (Part 2): "
