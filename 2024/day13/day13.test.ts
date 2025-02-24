@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
 import { readFile } from 'fs/promises'
-import { clawMachines, part1, findMatches } from "./day13.ts"
+import { clawMachines, part1, part2, clawMachines1000, lgs } from "./day13.ts"
 
 describe('Advent of Code Tests: day 13, part 1', () => {
     
@@ -16,6 +16,16 @@ describe('Advent of Code Tests: day 13, part 1', () => {
         const clawMachine = clawMachines(firstClawMachineInput)
         const expectedPattern = [{ buttonA: { x: 94, y: 34 }, buttonB: { x: 22, y: 67 }, prize: { x: 8400, y: 5400 } }]
         expect(clawMachine).toEqual(expectedPattern)
+    })
+
+    it('should validate the first clawMaines with LGS', () => {
+        const firstClawMachineInput = "Button A: X+94, Y+34\nButton B: X+22, Y+67\nPrize: X=8400, Y=5400"
+        const clawMachine = clawMachines(firstClawMachineInput)
+        const cm = clawMachine[0]
+        const output = lgs(cm.buttonA.x, cm.buttonA.y, cm.buttonB.x, cm.buttonB.y, cm.prize.x, cm.prize.y)
+
+        const expected = 80 * 3 + 40
+        expect(output).toBe(expected)
     })
 
     it('should validate the output of the first clawMachine', () => {
@@ -42,7 +52,7 @@ describe('Advent of Code Tests: day 13, part 1', () => {
         expect(output).toBe(expected)
     })
 
-    it('should should validate no combinations of the clawMachine', () => {
+    it('should validate no combinations of the clawMachine', () => {
         const secClawMachineInput = "Button A: X+26, Y+66\nButton B: X+67, Y+21\nPrize: X=12748, Y=12176"
         const secOutput = part1(secClawMachineInput)
 
@@ -90,26 +100,70 @@ describe('Advent of Code Tests: day 13, part 1', () => {
         expect(part1(input)).toBe(20);
     })
 
-    it('should output one result', () => {
-        const input = "94 34 22 67 8400 5400"
-        const cm = clawMachines(input)[0]
-        const output = findMatches(cm.buttonA.x, cm.buttonA.y, cm.buttonB.x, cm.buttonB.y, cm.prize.x, cm.prize.y)
-        const outputValues = output.next().value
-
-        const expected = 280
-        
-        expect(outputValues).toBe(expected)
-    })
-
     it('should return 91', () => {
         const input = `12 26 60 39 924 1092`
         const output = part1(input)
         expect(output).toBe(91)
     })
     
-    it('should return 91', async () =>{
+    it('should return part1 result: 35255', async () =>{
         const input = await readFile('day13/puzzle', 'utf-8')
         const output = part1(input)
         expect(output).toBe(35255)
+    })
+})
+
+
+describe('Advent of Code Tests: day 13, part 2', () => {
+    
+    it('should validate new input form for example 2', async () => {
+        const inputExample = await readFile('day13/example', 'utf-8')
+        const newCM = clawMachines1000(inputExample)
+
+        const inputExample2 = await readFile('day13/example2', 'utf-8')
+        const oldCM = clawMachines(inputExample2)
+
+        expect(JSON.stringify(newCM)).toBe(JSON.stringify(oldCM))
+    })
+
+    it('should validate new example input', async () => {
+        const input = await readFile('day13/example', 'utf-8')
+        const output = part2(input)
+        expect(output).toBe(875318608908)
+    })
+
+    it('should calculate new example 2 solution', () => {
+        const cm2 = 'Button A: X+26, Y+66\nButton B: X+67, Y+21\nPrize: X=12748, Y=12176'
+        const output = part2(cm2)
+        expect(output).toBe(459236326669)
+    })
+
+    it('should calculate new example 4 solution', () => {
+        const cm4 = 'Button A: X+69, Y+23\nButton B: X+27, Y+71\nPrize: X=18641, Y=10279'
+        const output = part2(cm4)
+        expect(output).toBe(416082282239)
+    })
+
+    it('should return 0, because you can not win it', () => {
+        const cm1 = 'Button A: X+94, Y+34\nButton B: X+22, Y+67\nPrize: X=8400, Y=5400'
+        const cm3 = 'Button A: X+17, Y+86\nButton B: X+84, Y+37\nPrize: X=7870, Y=6450'
+
+        const output1 = part2(cm1)
+        const output2 = part2(cm3)
+
+        expect(output1).toBe(0)
+        expect(output2).toBe(0)
+    })
+
+    it('should greater than 85155915190160 - (wrong solution) ', async () => {
+        const input = await readFile('day13/puzzle', 'utf-8')
+        const output = part2(input)
+        expect(output).toBeGreaterThan(85155915190160)
+    })
+    
+    it('final solution: 87582154060429', async () => {
+        const input = await readFile('day13/puzzle', 'utf-8')
+        const output = part2(input)
+        expect(output).toBe(87582154060429)
     })
 })

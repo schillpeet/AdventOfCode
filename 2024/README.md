@@ -6,32 +6,18 @@ I wrote days 1 to 12 exclusively in JavaScript. From day 13 onwards, I programme
 
 Install the project: `$ npm i`
 
-## Run a day (TypeScript)
-
-❗ To be used from day 13. Regarding the options, see section **_*Run a day (JavaScript)*_**.
+## Run a day
 
 ### Usage:
 
 ```bash
-$ npm run day -- <day> <option>
+$ npm run day -- <day> [option]
 ```
 
 ### Example:
 
 ```bash
 $ npm run day -- day13 -f
-```
-
-## Run a day (JavaScript)
-
-❗ To be used from day 1 to day 13.
-
-### Usage:
-
-Easily execute and test different days of the challenge using the `main.js` script.
-
-```bash
-$ node main.js <day> [options]
 ```
 
 #### Arguments:
@@ -50,12 +36,12 @@ $ node main.js <day> [options]
 
 #### Examples:
 
-- Runs with the puzzle input for day 1:<br>`$ node main.js day1`
+- Runs with the puzzle input for day 1:<br>`$ npm run day --  day1`
 
-- Runs with the example input for day 2:<br>`$ node main.js day2 -e`
-- Outputs the final solution for day 3:<br>`$ node main.js day3 -f`
+- Runs with the example input for day 2:<br>`$ npm run day --  day2 -e`
+- Outputs the final solution for day 3:<br>`$ npm run day --  day3 -f`
 
-- Runs with the example input and outputs the final solution for day 5:<br>`$ node main.js day5 -ef`
+- Runs with the example input and outputs the final solution for day 5:<br>`$ npm run day --  day5 -ef`
 
 ## Testing
 

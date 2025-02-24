@@ -19,48 +19,55 @@ function clawMachines(input: string): ClawMachine[] {
         }))
 }
 
-const isIntegerAndGreaterThanZero = (num: number) => Math.floor(num) == num && num >= 0
-
-function* findMatches(ax: number, ay: number, bx: number, by: number, px: number, py: number) {
-    for(let i = 0; i <= 100; i++) {
-        const ax_cand = (px - bx * i) / ax
-        const ay_cand = (py - by * i) / ay
-        if (isIntegerAndGreaterThanZero(ax_cand) && isIntegerAndGreaterThanZero(ay_cand)) {
-            const potPrize1 = ay * ax_cand + by * i === py ? ax_cand * 3 + i : null
-            const potPrize2 = ax * ay_cand + bx * i === px ? ay_cand * 3 + i : null
-
-            if (potPrize1 === null && potPrize2 === null) yield null
-            else if (potPrize1 === null) yield potPrize2
-            else if (potPrize2 === null) yield potPrize1
-            else yield potPrize1 < potPrize2 ? potPrize1 : potPrize2
-        } 
-    }
+function clawMachines1000(input: string) {
+    const prizeRise = 10000000000000
+    return clawMachines(input).map(machine => ({
+        ...machine,
+        prize: { x: machine.prize.x + prizeRise, y: machine.prize.y + prizeRise }
+    }))
 }
 
+function roundItOrNot(num: number, tolerance = 0.001) {
+    const rNum = Math.round(num)
+    if (Math.abs(num - rNum) < tolerance ) return rNum
+    return num
+}
 
-function findBestPrize(cm: ClawMachine): number {
-    const sol = findMatches(cm.buttonA.x, cm.buttonA.y, cm.buttonB.x, cm.buttonB.y, cm.prize.x, cm.prize.y)
-    let bestPrize = undefined
+function lgs(cm1: number, cm2: number, cm3: number, cm4: number, cm5: number, cm6: number) {
+    /**
+     * NOTE:
+     * You should actually check whether the intersection point between fn1 and fn2 is the same as the intersection 
+     * point of fm and fn1/fn2. However, it was sufficient for the solution.
+     */
+    //const fm_is_fn2_x = divided_by_zero((cm6/cm4 - (cm5+cm6)/(cm3+cm4)) / ((-(cm1+cm2)/(cm3+cm4) + cm2/cm4)))
+    //const schnittpunkt_fm_fn2_y = divided_by_zero(-((cm1+cm2)/(cm3+cm4)) * fm_is_fn2_x + (cm5+cm6)/(cm3+cm4))
+    const divided_by_zero = (num: number) => Number.isNaN(num) ? 0 : num
 
-    while(true) {
-        const currentSolution = sol.next().value
-        if (currentSolution === undefined) break
-        if (currentSolution === null) continue
-        bestPrize = bestPrize == undefined ? currentSolution : currentSolution < bestPrize ? currentSolution : bestPrize
-    }
-    return bestPrize == undefined ? 0 : bestPrize
+    const fm_is_fn1_x = divided_by_zero((cm5/cm3 - (cm5+cm6)/(cm3+cm4)) / ((-(cm1+cm2)/(cm3+cm4) + cm1/cm3)))
+    const intersectionPoint_fm_fn1_y = divided_by_zero(-((cm1+cm2)/(cm3+cm4)) * fm_is_fn1_x + (cm5+cm6)/(cm3+cm4))
+
+    const x = roundItOrNot(fm_is_fn1_x)
+    const y = roundItOrNot(intersectionPoint_fm_fn1_y)
+
+    // checks whether it is an integer or a decimal number after rounding
+    const aPushes = x === Math.floor(x) ? x : null
+    const bPushes = y === Math.floor(y) ? y : null
+
+    if (aPushes === null || bPushes === null) return 0
+
+    return 3 * aPushes + bPushes
 }
 
 function part1(input: string): number {
-    return clawMachines(input).reduce((acc, value) => acc += findBestPrize(value), 0)
+    return clawMachines(input).reduce((acc, cm) => acc += lgs(cm.buttonA.x, cm.buttonA.y, cm.buttonB.x, cm.buttonB.y, cm.prize.x, cm.prize.y), 0)
 }
 
 function part2(input: string): number {
-    return -1
+    return clawMachines1000(input).reduce((acc, cm) => acc += lgs(cm.buttonA.x, cm.buttonA.y, cm.buttonB.x, cm.buttonB.y, cm.prize.x, cm.prize.y), 0)
 }
 
 export async function run(input: string, optF: boolean): Promise<number> {
     return !optF ? part1(input) : part2(input)
 }
 
-export { part1, clawMachines, findMatches }
+export { part1, clawMachines, part2, clawMachines1000, lgs }

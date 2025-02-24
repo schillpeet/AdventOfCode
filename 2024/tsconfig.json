@@ -10,6 +10,7 @@
         "checkJs": true,
         "allowJs": true,
         "types": ["vitest/globals"],
+        "allowSyntheticDefaultImports": true,
         // to use .ts extensions in tests
         "allowImportingTsExtensions": true,
         "noEmit": true,

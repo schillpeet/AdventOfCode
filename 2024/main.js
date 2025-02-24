@@ -78,9 +78,9 @@ const fileExists = async path => !!(await stat(path).catch(() => false))
 
 async function main() {
     const { day, optE, optF } = parseArguments();
-    const exampleFile2Exists = await fileExists(`./${day}/example2`)
-    const inputPath = optE ? (exampleFile2Exists && optF ? `./${day}/example2` : `./${day}/example`) : `./${day}/puzzle`;
-    const scriptPath = `./${day}/${day}.js`;
+    const example2FileExists = await fileExists(`./${day}/example2`)
+    const inputPath = optE ? (example2FileExists && optF ? `./${day}/example2` : `./${day}/example`) : `./${day}/puzzle`;
+    const scriptPath = Number(day.slice(3)) < 13 ? `./${day}/${day}.js` : `./${day}/${day}.ts`
 
     const input = await loadInputFile(inputPath);
     const result = await executeDayModule(scriptPath, input, optF);
