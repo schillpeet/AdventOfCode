@@ -59,15 +59,16 @@ async function loadInputFile(inputPath) {
  * @param {string} scriptPath - Path to the day's script.
  * @param {string} input - Input data.
  * @param {boolean} optF - Whether to execute the final solution.
+ * @param {boolean} optE - example input or not
  * @returns {Promise<String>} - Result from the day's module.
  */
-async function executeDayModule(scriptPath, input, optF) {
+async function executeDayModule(scriptPath, input, optF, optE) {
     try {
         const dayModule = await import(scriptPath)
         if (typeof dayModule.run !== 'function') {
             throw new Error('Module does not export a "run" function.')
         }
-        return await dayModule.run(input, optF)
+        return await dayModule.run(input, optF, optE)
     } catch (err) {
         console.error('Error loading or running module:', err)
         process.exit(1)
@@ -83,20 +84,20 @@ async function main() {
     const scriptPath = Number(day.slice(3)) < 13 ? `./${day}/${day}.js` : `./${day}/${day}.ts`
 
     const input = await loadInputFile(inputPath);
-    const result = await executeDayModule(scriptPath, input, optF);
-    
+    const result = await executeDayModule(scriptPath, input, optF, optE);
+
     switch(true) {
         case (optE && !optF):
-            console.log(exampleSetPart1 + result)
+            console.log(exampleSetPart1, result)
             break;
         case (optE && optF):
-            console.log(exampleSetPart2 + result)
+            console.log(exampleSetPart2, result)
             break;
         case (!optE && !optF):
-            console.log(puzzleSetPart1 + result)
+            console.log(puzzleSetPart1, result)
             break;
         case (!optE && optF):
-            console.log(puzzleSetPart2 + result)
+            console.log(puzzleSetPart2, result)
             break;
     }
 }
