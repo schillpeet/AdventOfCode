@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest"
 import { readFile } from 'fs/promises'
 import { part1, robots, robotsFuturePosition } from "../day14/day14.ts"
 
-describe('Advent of Code Tests: day X, part 1', () => {
+describe('Advent of Code Tests: day 14, part 1', () => {
 
     it('should return part1 example 1 solution', async () => {
         const input = await readFile('day14/example', 'utf-8')
