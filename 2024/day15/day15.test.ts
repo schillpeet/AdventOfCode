@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
 import { readFile } from 'fs/promises'
-import { part1 } from "../day15/day15.ts"
+import { Field, part2, getMovements, createExpandedWarehouse, part1, TileType, updateWarehouse } from "../day15/day15.ts"
 
 describe('Advent of Code Tests: day 15, part 1', () => {
 
@@ -157,3 +157,166 @@ describe('Advent of Code Tests: day 15, part 1', () => {
     })
 })
 
+
+describe('Advent of Code Tests: day 15, part 2', () => {
+    
+    it('should validate the output of the first example', async() => {
+        const input = await readFile('day15/example', 'utf-8')
+        const output = part2(input)
+        expect(output).toBe(9021)
+    })
+
+    function visualize(warehouse: Field[]) {
+        const sortedList = warehouse.map(field => ({ ...field }))
+        const width = Math.max(...sortedList.map(e => e.pos.x)) + 1
+        const height = Math.max(...sortedList.map(e => e.pos.y)) + 1
+        
+        const output = Array.from({ length: height }, () => Array(width).fill(' '))
+    
+        sortedList.forEach(({ pos, ttype }) => {
+            const sign = ttype == TileType.Wall ? '#' :
+                ttype == TileType.Box ? 'O' :
+                ttype == TileType.Free ? '.' : 
+                ttype == TileType.LBracket ? '[' :
+                ttype == TileType.RBracket ? ']' : '@'
+            output[pos.y][pos.x] = sign
+        })
+        console.log(output.map(row => row.join('')).join('\n'))
+    }
+
+    // the following tests were only intended for interactive adaptation
+    it.skip('deals with up cases', () => {
+        const input = `
+################
+##.......#....##
+##......[]....##
+##.......[]...##
+##.....[].[]..##
+##.....[].....##
+##............##
+##......@.....##
+################
+
+^^^`.trim()
+        const warehouseAndMovements = input.split('\n\n')
+        const ownInput = warehouseAndMovements[0].split('\n').map(e => e.split(''))
+        const warehouse = createExpandedWarehouse(ownInput)
+        const movements = getMovements(warehouseAndMovements[1])
+
+        console.log('-#------------#-')
+        visualize(warehouse.flat())
+        movements.forEach(move => {
+            updateWarehouse(warehouse, move)
+            console.log('-#------------#-')
+            visualize(warehouse.flat())
+        })
+    })
+
+    it.skip('deals with down cases', () => {
+        const input = `
+################
+##.....@......##
+##......[]....##
+##.....##.....##
+##........[]..##
+##......[]....##
+##....[]......##
+##............##
+################
+
+vvvvvvv`.trim()
+        const warehouseAndMovements = input.split('\n\n')
+        const ownInput = warehouseAndMovements[0].split('\n').map(e => e.split(''))
+        const warehouse = createExpandedWarehouse(ownInput)
+        const movements = getMovements(warehouseAndMovements[1])
+
+        console.log('-#------------#-')
+        visualize(warehouse.flat())
+        movements.forEach(move => {
+            updateWarehouse(warehouse, move)
+            console.log('-#------------#-')
+            visualize(warehouse.flat())
+        })
+    })
+
+    it.skip('deals with left cases', () => {
+        const input = `
+##################
+##..............##
+##.......[].....##
+##..[].[]...@...##
+##.......[].....##
+##..............##
+##..............##
+##..............##
+##################
+
+<<<<<`.trim()
+        const warehouseAndMovements = input.split('\n\n')
+        const ownInput = warehouseAndMovements[0].split('\n').map(e => e.split(''))
+        const warehouse = createExpandedWarehouse(ownInput)
+        const movements = getMovements(warehouseAndMovements[1])
+
+        console.log('-#------------#-')
+        visualize(warehouse.flat())
+        movements.forEach(move => {
+            updateWarehouse(warehouse, move)
+            console.log('-#------------#-')
+            visualize(warehouse.flat())
+        })
+    })
+
+    it.skip('deals with right cases', () => {
+        const input = `
+##################
+##..............##
+##.......[].....##
+##.@..[].#.[]...##
+##.......[].....##
+##..............##
+##..............##
+##..............##
+##################
+
+>>>>>>>>>>`.trim()
+        const warehouseAndMovements = input.split('\n\n')
+        const ownInput = warehouseAndMovements[0].split('\n').map(e => e.split(''))
+        const warehouse = createExpandedWarehouse(ownInput)
+        const movements = getMovements(warehouseAndMovements[1])
+
+        console.log('-#------------#-')
+        visualize(warehouse.flat())
+        movements.forEach(move => {
+            updateWarehouse(warehouse, move)
+            console.log('-#------------#-')
+            visualize(warehouse.flat())
+        })
+    })
+
+    it.skip('deals with all kind of cases', () => {
+        const input = `
+##################
+##..............##
+##.......[].....##
+##.@..[].#.[]...##
+##.......[].....##
+##..............##
+##..............##
+##..............##
+##################
+
+>>>^>v<v>>>v>>>^^<^<<`.trim()
+        const warehouseAndMovements = input.split('\n\n')
+        const ownInput = warehouseAndMovements[0].split('\n').map(e => e.split(''))
+        const warehouse = createExpandedWarehouse(ownInput)
+        const movements = getMovements(warehouseAndMovements[1])
+
+        console.log('-#------------#-')
+        visualize(warehouse.flat())
+        movements.forEach(move => {
+            updateWarehouse(warehouse, move)
+            console.log('-#------------#-')
+            visualize(warehouse.flat())
+        })
+    })
+})
