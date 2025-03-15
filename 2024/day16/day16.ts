@@ -116,7 +116,7 @@ function djikstraInit(input:string) {
     const finishedList:TurnoffCost[] = [{name: reindeer.pos, view: reindeer.view, curCosts: 0}]
     let sumOfAllNodes = mapTurnoffs.length
 
-    function djikstraDoIt(finishedList:TurnoffCost[], processList:TurnoffCost[], lastElement:Tile) 
+    function djikstraDoesIt(finishedList:TurnoffCost[], processList:TurnoffCost[], lastElement:Tile) 
         : [TurnoffCost[], TurnoffCost[], Tile]
     {
         if (sumOfAllNodes === 0) return [finishedList, processList, lastElement]
@@ -134,7 +134,7 @@ function djikstraInit(input:string) {
             if (acc.curCosts > node.curCosts) acc = node
             return acc
         }, updateList[0])
-        
+
         finishedList.push(nextNode)
 
         const nextUpdatedList = updateList.filter(e => !(e.name.x === nextNode.name.x && e.name.y === nextNode.name.y))
@@ -146,9 +146,9 @@ function djikstraInit(input:string) {
         }
 
         sumOfAllNodes -= 1
-        return djikstraDoIt(finishedList, nextUpdatedList, nextElement)
+        return djikstraDoesIt(finishedList, nextUpdatedList, nextElement)
     }
-    const djikstraDidItAgain = djikstraDoIt(finishedList, processList, reindeer)
+    const djikstraDidItAgain = djikstraDoesIt(finishedList, processList, reindeer)
     const end = initMaze.flat().find(e => e.tile === 'E')!
     return djikstraDidItAgain[0].find(e => e.name.x === end.pos.x && e.name.y === end.pos.y)!.curCosts
 }
