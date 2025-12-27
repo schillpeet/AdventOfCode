@@ -1,7 +1,6 @@
-package days.day3
+package aoc2025.days.day3
 
-import days.AbstractDayTest
-import aoc2025.days.day3.Day3
+import aoc2025.days.AbstractDayTest
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue

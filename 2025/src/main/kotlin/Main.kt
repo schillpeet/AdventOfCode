@@ -1,5 +1,3 @@
-package aoc2025
-
 import aoc2025.days.DaysRunner
 
 fun main(args: Array<String>) {

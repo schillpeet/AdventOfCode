@@ -29,3 +29,12 @@ Run all unit tests for example and puzzle inputs:
 ```shell
 $ ./gradlew test 
 ```
+
+### 🛠 Generate a new Day
+
+Create a new Day template (including test files) by running:
+
+```shell
+$ chmod +x scripts/init_day.sh
+$ ./scripts/init_day.sh 3 # creates Day 3
+```
