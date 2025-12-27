@@ -10,7 +10,7 @@ object DaysRunner {
     const val RESET = "\u001B[0m"
 
     private fun readInput(day: Int): List<String> {
-        return File("src/main/kotlin/days/day$day/puzzle").readLines()
+        return File("src/main/kotlin/aoc2025/days/day$day/puzzle").readLines()
     }
 
     private fun getDay(day: Int): DaysI {
