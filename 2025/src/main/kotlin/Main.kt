@@ -1,7 +1,9 @@
-package org.example
+package aoc2025
 
-import org.example.days.day1.day1
+import aoc2025.days.DaysRunner
 
-fun main() {
-    println(day1().part1())
+fun main(args: Array<String>) {
+    val day = args.getOrNull(0)?.toIntOrNull() ?: 3
+    val part = args.getOrNull(1)?.toIntOrNull() ?: 2
+    DaysRunner.run(day, part)
 }
