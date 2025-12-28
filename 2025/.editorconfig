@@ -1,0 +1,4 @@
+root = true
+
+[src/test/kotlin/aoc2025/days/day6/puzzleExample]
+trim_trailing_whitespace = false
