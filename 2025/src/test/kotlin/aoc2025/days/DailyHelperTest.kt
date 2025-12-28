@@ -35,4 +35,19 @@ class DailyHelperTest {
         DailyHelper.updateGrid(oldGrid, newValues)
         assertTrue(oldGrid.indices.all { row -> oldGrid[row].contentEquals(expected[row]) })
     }
+
+    @Test
+    fun `should merge list of ranges` () {
+        val ranges = listOf(
+            1L..20,
+            22L..30,
+            23L..28,
+            32L..40,
+            41L..50,
+            50L..60
+        )
+        val actual = DailyHelper.mergeRanges(ranges)
+        val expected = listOf(1L..20, 22L..30, 32L..60)
+        assertEquals(expected, actual)
+    }
 }

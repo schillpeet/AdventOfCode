@@ -4,6 +4,7 @@ import aoc2025.days.day1.Day1
 import aoc2025.days.day2.Day2
 import aoc2025.days.day3.Day3
 import aoc2025.days.day4.Day4
+import aoc2025.days.day5.Day5
 import java.io.File
 
 object DaysRunner {
@@ -20,6 +21,7 @@ object DaysRunner {
             2 -> Day2()
             3 -> Day3()
             4 -> Day4()
+            5 -> Day5()
             else -> error("Day $day not implemented")
         }
         return day

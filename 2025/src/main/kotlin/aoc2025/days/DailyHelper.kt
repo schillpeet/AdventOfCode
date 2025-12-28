@@ -13,7 +13,6 @@ object DailyHelper {
         return grid
     }
 
-
     fun getNeighbours(grid: List<CharArray>, y: Int, x: Int): List<Char> {
         return (0 until 8).mapNotNull {
             grid.getOrNull(y + ny[it])?.getOrNull(x + nx[it])
@@ -28,5 +27,16 @@ object DailyHelper {
                 Triple(it, yPos, xPos)
             }
         }
+    }
+
+    fun mergeRanges(ls: List<LongRange>): List<LongRange> {
+        val (firstEl, restList) = ls.sortedBy { it.first }.let { it.first() to it.drop(1) }
+        val result: MutableList<LongRange> = mutableListOf(firstEl)
+        restList.forEach { el ->
+            if (result.last().last < el.first - 1) result.add(el) // 1. add new range
+            else if (result.last().last < el.last)
+                result[result.lastIndex] = result.last().first .. el.last // 2. extend range
+        }
+        return result
     }
 }
