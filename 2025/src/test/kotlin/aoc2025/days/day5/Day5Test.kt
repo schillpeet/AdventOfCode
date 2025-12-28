@@ -10,14 +10,14 @@ class Day5Test: AbstractDayTest() {
     // --- part 1 ---
     @Test
     fun `part 1 should return correct example result`() {
-        val actual = Day5().part1(inputExample())
+        val actual = Day5().part1(examplePuzzleInput())
         assertEquals("3", actual)
     }
 
     // --- part 2 ---
     @Test
     fun `part 2 should return correct example result`() {
-        val actual = Day5().part2(inputExample())
+        val actual = Day5().part2(examplePuzzleInput())
         assertEquals("14", actual)
     }
 }

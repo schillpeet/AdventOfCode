@@ -12,14 +12,14 @@ class Day3Test() : AbstractDayTest() {
     // --- part 1 ---
     @Test
     fun `part 1 should return correct example result`() {
-        val actual = Day3().part1(inputExample())
+        val actual = Day3().part1(examplePuzzleInput())
         assertEquals("357", actual)
     }
 
     // --- part 2 ---
     @Test
     fun `part 2 should return correct example result`() {
-        val actual = Day3().part2(inputExample())
+        val actual = Day3().part2(examplePuzzleInput())
         assertEquals("3121910778619", actual)
     }
 
@@ -44,7 +44,7 @@ class Day3Test() : AbstractDayTest() {
     // --- wrong answers tests
     @Test
     fun `part 2 the answer must be higher`() {
-        val actual = Day3().part2(input()).toLong()
+        val actual = Day3().part2(puzzleInput()).toLong()
         assertTrue(actual > 173350277113674)
     }
 

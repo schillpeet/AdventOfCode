@@ -6,10 +6,10 @@ abstract class AbstractDayTest {
 
     abstract val day: Int
 
-    protected fun input(): List<String> =
+    protected fun puzzleInput(): List<String> =
         File("src/main/kotlin/aoc2025/days/day$day/puzzle").useLines { it.toList() }
 
-    protected fun inputExample(): List<String> =
+    protected fun examplePuzzleInput(): List<String> =
         File("src/test/kotlin/aoc2025/days/day$day/puzzleExample").useLines { it.toList() }
 
     protected fun ownExample(): List<String> =

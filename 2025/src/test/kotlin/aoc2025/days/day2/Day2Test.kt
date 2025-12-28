@@ -11,14 +11,14 @@ class Day2Test: AbstractDayTest() {
     @Test
     fun `should validate the example result of part1` () {
         val exampleResult = 1227775554
-        val day2part1Result = Day2().part1(inputExample())
+        val day2part1Result = Day2().part1(examplePuzzleInput())
         assertEquals(exampleResult.toString(), day2part1Result)
     }
 
     @Test
     fun `should validate the example result of part2` () {
         val exampleResult = 4174379265
-        val day2part2Result = Day2().part2(inputExample())
+        val day2part2Result = Day2().part2(examplePuzzleInput())
         assertEquals(exampleResult.toString(), day2part2Result)
     }
 }
