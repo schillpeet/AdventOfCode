@@ -50,14 +50,14 @@ class Day${day}Test: AbstractDayTest() {
     // --- part 1 ---
     @Test
     fun \`part 1 should return correct example result\`() {
-        val actual = Day$day().part1(inputExample())
+        val actual = Day$day().part1(examplePuzzleInput())
 
     }
 
     // --- part 2 ---
     @Test
     fun \`part 2 should return correct example result\`() {
-        val actual = Day$day().part2(inputExample())
+        val actual = Day$day().part2(examplePuzzleInput())
 
     }
 }
