@@ -26,6 +26,12 @@ class Day6Test: AbstractDayTest() {
     @Test
     fun `part 2 should return correct example result`() {
         val actual = Day6().part2(examplePuzzleInput())
+        assertEquals("3263827", actual)
+    }
 
+    @Test
+    fun `part2 final solution` () {
+        val actual = Day6().part2(puzzleInput())
+        assertEquals("11744693538946",actual)
     }
 }
