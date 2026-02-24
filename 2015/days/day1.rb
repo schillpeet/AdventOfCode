@@ -1,4 +1,4 @@
-input = File.read("day1") # read opens and closes file
+input = File.read("puzzles/day1.txt") # read opens and closes file
 
 # @param input [String]
 def part1(input)
