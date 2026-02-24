@@ -10,3 +10,14 @@ def part1(input)
 end
 
 puts "day2, part1: #{part1(input)}"
+
+def part2(input)
+  input.each_line.sum do |line|
+    a, b, c = line.split("x").map(&:to_i)
+    ribbon = a*b*c
+    bow = [a,b,c].min(2).sum * 2
+    ribbon + bow
+  end
+end
+
+puts "day2, part2: #{part2(input)}"
