@@ -1,7 +1,5 @@
 require 'digest'
 
-input_test_1 = "abcdef"
-
 def part1and2(input, difficulty)
   count = 0
   prefix = difficulty == 1 ? "00000" : "000000"
